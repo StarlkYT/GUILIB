@@ -26,7 +26,7 @@ namespace GUILIB.Core
         /// <param name="width"> Sets the window's width.</param>
         /// <param name="height"> Sets the window's height.</param>
         /// <param name="resizable"> Enable or disable window resizing.</param>
-        public static void Setup(string title = "GUILIB", int width = 1024, int height = 576, bool resizable = true)
+        public static void Setup(string title = "GUILIB", int width = 500, int height = 250, bool resizable = true)
         {
             Title = title;
             Width = width;

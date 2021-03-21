@@ -17,17 +17,19 @@ namespace GUILIB.Widgets.Buttons
         public bool isToggled = false;
         public ButtonStyle buttonStyle;
 
+        private bool _scales;
         private Color _currentBackgroundColor;
         private Color _currentOutlineColor;
         private Color _currentTextColor;
         private Rectangle _textRectangle;
 
-        public ButtonWidget(Rectangle rectangle, ButtonStyle buttonStyle, string text, int textSize)
+        public ButtonWidget(Rectangle rectangle, ButtonStyle buttonStyle, string text, int textSize, bool scales)
         {
             widgetRectangle = rectangle;
             this.buttonStyle = buttonStyle;
             this.text = text;
             this.textSize = textSize;
+            this._scales = scales;
         }
 
         public override void Update()
@@ -73,9 +75,19 @@ namespace GUILIB.Widgets.Buttons
 
         public override void Draw()
         {
-            DrawRectangleRounded(widgetRectangle, buttonStyle.roundness, 8, _currentBackgroundColor);
-            DrawRectangleLinesEx(widgetRectangle, buttonStyle.outlineThickness, _currentOutlineColor);
-            DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, true, _currentTextColor);
+            if(_scales) //Very buggy  & Broken!
+            {
+                DrawRectangleRounded(new Rectangle((widgetRectangle.x / 100) * GetScreenWidth(), (widgetRectangle.y / 100) * GetScreenHeight(), (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), 
+                                    buttonStyle.roundness, 8, _currentBackgroundColor);
+                DrawRectangleLinesEx(new Rectangle((widgetRectangle.x / 100) * GetScreenWidth(), (widgetRectangle.y / 100) * GetScreenHeight(), (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), buttonStyle.outlineThickness, _currentOutlineColor);
+                DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, true, _currentTextColor);
+            }
+            else
+            {
+                DrawRectangleRounded(widgetRectangle, buttonStyle.roundness, 8, _currentBackgroundColor);
+                DrawRectangleLinesEx(widgetRectangle, buttonStyle.outlineThickness, _currentOutlineColor);
+                DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, true, _currentTextColor);
+            }
         }
     }
 }

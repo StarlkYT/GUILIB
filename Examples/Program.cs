@@ -12,17 +12,22 @@ namespace Examples
 {
     class Program
     {
-        static BackgroundWidget BackgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f);
-        static ButtonWidget ButtonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15);
+        //Non-scaling elements (scales by pixels):
+        static BackgroundWidget BackgroundWidget = new BackgroundWidget(new Rectangle(32, 32, 128, 128), Color.GOLD, 0.25f, false);
+        static ButtonWidget ButtonWidget = new ButtonWidget(new Rectangle(64, 64, 64, 64), new ButtonStyle(), "Click me!", 15, false);
 
         static int ClicksAmount;
         static LabelWidget LabelWidget = new LabelWidget(new Rectangle(16, 16, 256, 32), Color.WHITE, $"Clicks: {ClicksAmount}", true, 15);
 
         static ToggleWidget ToggleWidget = new ToggleWidget(new Rectangle(64, 180, 64 ,20), new ToggleStyle(), true);
 
+        //Dynamically scaling elements (live scales by screen %):
+        static BackgroundWidget BackgroundWidget2 = new BackgroundWidget(new Rectangle(50, 50, 20, 20), Color.GOLD, 0.25f, true);
+        static ButtonWidget ButtonWidget2 = new ButtonWidget(new Rectangle(30, 30, 10, 10), new ButtonStyle(), "Click me!", 15, true);
+
         // Note: { BackgroundWidget, ButtonWidget } will look different than { ButtonWidget, BackgroundWidget}.
         //       Because it will draw the BackgroundWidget THEN the ButtonWidget. If you do the opposite you won't see the button.
-        static List<Widget> Widget = new List<Widget>() { BackgroundWidget, ButtonWidget, LabelWidget, ToggleWidget };
+        static List<Widget> Widget = new List<Widget>() { BackgroundWidget, ButtonWidget, LabelWidget, ToggleWidget, BackgroundWidget2, ButtonWidget2 };
 
         static void Main()
         {
