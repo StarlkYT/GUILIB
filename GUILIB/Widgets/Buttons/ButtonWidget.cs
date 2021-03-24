@@ -16,8 +16,8 @@ namespace GUILIB.Widgets.Buttons
 
         private Rectangle _textRectangle;
 
-        public ButtonWidget(Rectangle widgetRectangle, Color color, float roundness = 0.25f, 
-                            int outlineThickness = 1, string text = "", int textSize = 15, bool wrapText = false) : base(widgetRectangle, color)
+        public ButtonWidget(Rectangle widgetRectangle, Color color, bool scales, float roundness = 0.25f, 
+                            int outlineThickness = 1, string text = "", int textSize = 15, bool wrapText = false) : base(widgetRectangle, color, scales)
         {
             this.roundness = roundness;
             this.outlineThickness = outlineThickness;
@@ -35,9 +35,17 @@ namespace GUILIB.Widgets.Buttons
 
         public override void Draw()
         {
-            DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness, outlineColor);
-            DrawRectangleRounded(widgetRectangle, roundness, 8, color);
-            DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, wrapText, textColor);
+            if(scales)
+            {
+                DrawRectangleRoundedLines(new Rectangle((widgetRectangle.x / 100) * GetScreenWidth(), (widgetRectangle.y / 100) * GetScreenHeight(), (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), roundness, 8, outlineThickness, outlineColor);
+                DrawRectangleRounded(new Rectangle((widgetRectangle.x / 100) * GetScreenWidth(), (widgetRectangle.y / 100) * GetScreenHeight(), (widgetRectangle.width / 100) * GetScreenWidth(), (widgetRectangle.height / 100) * GetScreenHeight()), roundness, 8, color);
+                DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, wrapText, textColor);
+            }else
+            {
+                DrawRectangleRoundedLines(widgetRectangle, roundness, 8, outlineThickness, outlineColor);
+                DrawRectangleRounded(widgetRectangle, roundness, 8, color);
+                DrawTextRec(GetFontDefault(), text, _textRectangle, textSize, textSize / 10, wrapText, textColor);
+            }
         }
     }
 }

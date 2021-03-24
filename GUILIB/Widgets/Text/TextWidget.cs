@@ -9,7 +9,7 @@ namespace GUILIB.Widgets.Text
         public int textSize;
         public bool wrapText;
 
-        public TextWidget(Rectangle widgetRectangle, Color color, string text, int textSize, bool wrapText) : base(widgetRectangle, color)
+        public TextWidget(Rectangle widgetRectangle, Color color, bool scales, string text, int textSize, bool wrapText) : base(widgetRectangle, color, scales)
         {
             this.text = text;
             this.textSize = textSize;

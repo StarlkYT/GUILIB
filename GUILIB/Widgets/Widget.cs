@@ -29,11 +29,13 @@ namespace GUILIB.Widgets
 
         public Rectangle widgetRectangle;
         public Color color;
+        public bool scales;
 
-        public Widget(Rectangle widgetRectangle, Color color)
+        public Widget(Rectangle widgetRectangle, Color color, bool scales)
         {
             this.widgetRectangle = widgetRectangle;
             this.color = color;
+            this.scales = scales;
         }
 
         /// <summary>
