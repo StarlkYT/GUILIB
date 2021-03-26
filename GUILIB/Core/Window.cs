@@ -49,6 +49,7 @@ namespace GUILIB.Core
             if (Resizable)
             {
                 SetConfigFlags(ConfigFlag.FLAG_WINDOW_RESIZABLE);
+                //SetConfigFlags(ConfigFlag.FLAG_WINDOW_TRANSPARENT);
                 //SetConfigFlags(ConfigFlag.FLAG_WINDOW_HIGHDPI);
                 //SetConfigFlags(ConfigFlag.FLAG_MSAA_4X_HINT);
             }

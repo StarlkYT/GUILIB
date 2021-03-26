@@ -28,8 +28,15 @@ namespace GUILIB.Widgets.Buttons
 
         public override void Update()
         {
-            _textRectangle = new Rectangle(widgetRectangle.x + outlineThickness, widgetRectangle.y + outlineThickness,
-                                          widgetRectangle.width - outlineThickness, widgetRectangle.height - outlineThickness);
+            if(scales)
+            {
+                _textRectangle = new Rectangle((widgetRectangle.x / 100) * GetScreenWidth() + outlineThickness, (widgetRectangle.y / 100) * GetScreenHeight() + outlineThickness,
+                                              (widgetRectangle.width / 100) * GetScreenWidth() - outlineThickness, (widgetRectangle.height / 100) * GetScreenHeight() - outlineThickness);
+            }else
+            {
+                _textRectangle = new Rectangle(widgetRectangle.x + outlineThickness, widgetRectangle.y + outlineThickness,
+                                              widgetRectangle.width - outlineThickness, widgetRectangle.height - outlineThickness);
+            }
             base.Update();
         }
 
