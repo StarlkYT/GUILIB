@@ -4,14 +4,14 @@ The library is still in an early stage of development, but yet, we are welcoming
 
 ### How does it work?
 The ecosystem of GUILIB mostly revolves around widgets, such as `TextWidget`, `BackgroundWidget` so on and so forth...
-To create a window in GUILIB, initialize the window, for example:
+Creating a window in GUILIB is as simple as this:
 ```cs
 Window.Setup() // You can specify options like title, width, height, etc...
 Window.Run() // Initializes the window according to the given options.
 
-while (!Window.ProgramClosed) // Keep rendering the widgts till the program closes.
+while (!Window.Closed) // Keep rendering the widgets till the program closes.
 {
-    // "Widget" is the base/parent class for all widgets in GUILIB
-    Window.Draw(new Widget[] { new TextWidget(new Rectangle(64, 64, 64, 64), Color.RED, "Hello, world!", 15, true ) }, Color.WHITE);
+    // Widget is the base class for all widgets.
+    Window.Draw(new Widget[] { /* Put widget(s) here. */ }, Color.WHITE);
 }
 ```
