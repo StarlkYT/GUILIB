@@ -30,7 +30,7 @@ namespace Examples
 
             // Buttons                                                                                                                   
             widgets.Add(new ButtonWidget(new Rectangle(0, 128, 128, 64), new ButtonStyle(), new TextWidget(new Rectangle(0, 128, 128, 64), new TextStyle(), "Done", true))); // You've to specify the location of the button's text manually
-            widgets.Add(new ToggleButtonWidget(new Rectangle(0, 256, 128, 64), new ToggleButtonStyle(), new Vector2(64, 64)));
+            widgets.Add(new ToggleButtonWidget(new Rectangle(0, 256, 128, 64), new ToggleButtonStyle(), new ButtonStyle(), new Vector2(64, 64)));
 
             while (!Window.Closed)
             {

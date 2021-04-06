@@ -16,14 +16,13 @@ namespace GUILIB.Widgets.Buttons
         public Vector2 toggleButtonSize;
 
         private ButtonWidget toggleButton;
-
         private bool toggled = false;
 
-        public ToggleButtonWidget(Rectangle widgetRectangle, ToggleButtonStyle style, Vector2 toggleButtonSize) : base(widgetRectangle, style)
+        public ToggleButtonWidget(Rectangle widgetRectangle, ToggleButtonStyle style, ButtonStyle toggleButtonStyle, Vector2 toggleButtonSize) : base(widgetRectangle, style)
         {
             this.toggleButtonStyle = style;
             this.toggleButtonSize = toggleButtonSize;
-            this.toggleButton = new ButtonWidget(new Rectangle(widgetRectangle.x, widgetRectangle.y, toggleButtonSize.X, toggleButtonSize.Y), new ButtonStyle(), 
+            this.toggleButton = new ButtonWidget(new Rectangle(widgetRectangle.x, widgetRectangle.y, toggleButtonSize.X, toggleButtonSize.Y), toggleButtonStyle, 
                                                  new TextWidget(widgetRectangle, new TextStyle(), "", false));
             this.toggleButton.MousePressed += ToggleButtonPressed;
         }
