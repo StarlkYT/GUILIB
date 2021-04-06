@@ -1,76 +1,57 @@
-﻿using GUILIB.Styles.Buttons;
+﻿using GUILIB.Styles;
+using GUILIB.Styles.Buttons;
+using GUILIB.Styles.Texts;
+using GUILIB.Widgets.Texts;
 using Raylib_cs;
 using System;
 using System.Numerics;
-using static Raylib_cs.Raylib;
 
 namespace GUILIB.Widgets.Buttons
 {
     public class ToggleButtonWidget : Widget
     {
-        /// <summary>
-        /// Invoked when the user changes the toggle mode of the toggle button. The boolean is True if it was toggled.
-        /// </summary>
         public Action<bool> ToggleChange;
+
         public ToggleButtonStyle toggleButtonStyle;
-        public Vector2 toggleSize;
+        public Vector2 toggleButtonSize;
 
-        private bool _toggled = false;
-        private Rectangle _toggleRectangle;
-        private Color[] _toggleColors = new Color[] { Color.WHITE, Color.WHITE };
+        private ButtonWidget toggleButton;
 
-        public ToggleButtonWidget(Rectangle widgetRectangle, ToggleButtonStyle style, Vector2 toggleSize)
-            : base(widgetRectangle, style)
+        private bool toggled = false;
+
+        public ToggleButtonWidget(Rectangle widgetRectangle, ToggleButtonStyle style, Vector2 toggleButtonSize) : base(widgetRectangle, style)
         {
-            this._toggleRectangle = new Rectangle(widgetRectangle.x, widgetRectangle.y,
-                                                  toggleSize.X, toggleSize.Y);
             this.toggleButtonStyle = style;
-            this.toggleSize = toggleSize;
-            _toggleColors = toggleButtonStyle.idleToggleButtonColor;
+            this.toggleButtonSize = toggleButtonSize;
+            this.toggleButton = new ButtonWidget(new Rectangle(widgetRectangle.x, widgetRectangle.y, toggleButtonSize.X, toggleButtonSize.Y), new ButtonStyle(), 
+                                                 new TextWidget(widgetRectangle, new TextStyle(), "", false));
+            this.toggleButton.MousePressed += ToggleButtonPressed;
         }
 
         public override void Update(bool isWidgetScalable)
         {
-            switch (MouseInteraction())
-            {
-                case 0: // Idle
-                    _toggleColors = toggleButtonStyle.idleToggleButtonColor;
-                    break;
-
-                case 1: // Hover
-                    _toggleColors = toggleButtonStyle.hoverToggleButtonColor;
-                    break;
-
-                case 2: // Down
-                    _toggleColors = toggleButtonStyle.pressedToggleButtonColor;
-                    break;
-
-                case 4: // Pressed
-                    _toggled = !_toggled;
-                    ToggleChange?.Invoke(_toggled);
-
-                    if (_toggled)
-                    {
-                        this._toggleRectangle = new Rectangle(widgetRectangle.width - toggleSize.X, widgetRectangle.y,
-                                                              toggleSize.X, toggleSize.Y);
-                    }
-                    else
-                    {
-                        this._toggleRectangle = new Rectangle(widgetRectangle.x, widgetRectangle.y,
-                                                              toggleSize.X, toggleSize.Y);
-                    }
-                    break;
-            }
-
             base.Update(isWidgetScalable);
+            toggleButton.Update(isWidgetScalable);
         }
 
         public override void Draw()
         {
             base.Draw();
-            DrawRectangleRounded(_toggleRectangle, toggleButtonStyle.roundnessToggle, 8, _toggleColors[0]);
-            DrawRectangleRoundedLines(_toggleRectangle, toggleButtonStyle.roundnessToggle, 8, 
-                                      toggleButtonStyle.outlineToggleThickness, _toggleColors[1]);
+            toggleButton.Draw();
+        }
+
+        private void ToggleButtonPressed(object sender, Vector2 mousePosition)
+        {
+            toggled = !toggled;
+            ToggleChange?.Invoke(toggled);
+            if (toggled)
+            {
+                toggleButton.widgetRectangle = new Rectangle(widgetRectangle.width - toggleButtonSize.X, widgetRectangle.y, toggleButtonSize.X, toggleButtonSize.Y);
+            }
+            else
+            {
+                toggleButton.widgetRectangle = new Rectangle(widgetRectangle.x, widgetRectangle.y, toggleButtonSize.X, toggleButtonSize.Y);
+            }
         }
     }
 }

@@ -23,18 +23,18 @@ namespace Examples
 
             // Panels
             widgets.Add(new PanelWidget(new Rectangle(0, 0, 256, 256), new PanelStyle()));
-            
+
             // Text
             widgets.Add(new TextWidget(new Rectangle(0, 0, 256, 64), new TextStyle(), "Enter username:", true));
             widgets.Add(new TextEntryWidget(new Rectangle(0, 32, 128, 64), new TextEntryStyle(), true, 10));
-            
+
             // Buttons                                                                                                                   
             widgets.Add(new ButtonWidget(new Rectangle(0, 128, 128, 64), new ButtonStyle(), new TextWidget(new Rectangle(0, 128, 128, 64), new TextStyle(), "Done", true))); // You've to specify the location of the button's text manually
             widgets.Add(new ToggleButtonWidget(new Rectangle(0, 256, 128, 64), new ToggleButtonStyle(), new Vector2(64, 64)));
 
             while (!Window.Closed)
             {
-                Window.Draw(widgets.ToArray(), new Color(32, 34, 37, 255));
+                Window.Draw(widgets.ToArray(), Color.BLACK);
             }
         }
     }
